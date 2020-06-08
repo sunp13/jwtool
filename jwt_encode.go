@@ -1,14 +1,24 @@
 package jwtool
 
-import "github.com/dgrijalva/jwt-go"
+import (
+	"time"
+
+	"github.com/dgrijalva/jwt-go"
+)
 
 // Encode ...
-func Encode() (string, error) {
-	token := jwt.New(jwt.SigningMethodES512)
+func Encode(data map[string]string, expireTime time.Duration, key string) (string, error) {
+	// 默认使用hs512摘要算法
+	token := jwt.New(jwt.SigningMethodHS512)
 	claims := make(jwt.MapClaims)
-	claims["a1"] = 111
-	claims["a2"] = 222
+	// 内容
+	for k, v := range data {
+		claims[k] = v
+	}
+	// 超时时间
+	claims["exp"] = time.Now().Add(expireTime).Unix()
 	token.Claims = claims
-	tokenString, err := token.SignedString([]byte("123456"))
+	// 计算验签
+	tokenString, err := token.SignedString([]byte(key))
 	return tokenString, err
 }
