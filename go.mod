@@ -1,4 +1,4 @@
-module jwtool
+module github.com/sunp13/jwtool
 
 go 1.13
 
