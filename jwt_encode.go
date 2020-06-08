@@ -5,9 +5,6 @@ import "github.com/dgrijalva/jwt-go"
 // Encode ...
 func Encode() (string, error) {
 	token := jwt.New(jwt.SigningMethodES512)
-	if err != nil {
-		return nil, err
-	}
 	claims := make(jwt.MapClaims)
 	claims["a1"] = 111
 	claims["a2"] = 222
