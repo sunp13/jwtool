@@ -35,7 +35,7 @@ func Check(tokenString, key, exp string) ([]byte, error) {
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		// 判断一下claims 是否过期
 		unixI64, _ := strconv.ParseInt(fmt.Sprintf("%v", claims[exp]), 10, 64)
-		if time.Unix(unixI64, 0).Before(time.Now()) {
+		if time.Unix(unixI64, 0).After(time.Now()) {
 			// 过期返回错误
 			return nil, fmt.Errorf("Token Expired")
 		}
