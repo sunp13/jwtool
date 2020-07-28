@@ -7,7 +7,7 @@ import (
 )
 
 // Encode ...
-func Encode(data map[string]string, expireTime time.Duration, key string) (string, error) {
+func Encode(data map[string]interface{}, expireTime time.Duration, key string) (string, error) {
 	// 默认使用hs512摘要算法
 	token := jwt.New(jwt.SigningMethodHS512)
 	claims := make(jwt.MapClaims)
